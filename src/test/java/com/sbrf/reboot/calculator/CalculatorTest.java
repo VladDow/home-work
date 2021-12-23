@@ -27,6 +27,21 @@ class CalculatorTest {
     }
 
     @Test
+    void getRemainder() {
+        assertEquals(3, new Calculator().getRemainder(3, 4));
+    }
+
+    @Test
+    void getModule() {
+        assertEquals(5, new Calculator().getModule(-5));
+    }
+
+    @Test
+    void getExponentiation() {
+        assertEquals(0.00032, new Calculator().getExponentiation(5, -5));
+    }
+
+    @Test
     void classHasSevenMethods() {
         assertEquals(7, Calculator.class.getMethods().length - Object.class.getMethods().length);
     }
