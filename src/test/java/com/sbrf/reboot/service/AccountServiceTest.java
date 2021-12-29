@@ -1,9 +1,12 @@
 package com.sbrf.reboot.service;
 
 import com.sbrf.reboot.repository.AccountRepository;
+
 import lombok.SneakyThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
@@ -30,7 +33,7 @@ class AccountServiceTest {
     @SneakyThrows
     @Test
     void contractExist() {
-        Set<Long> accounts = new HashSet();
+        Set<Long> accounts = new HashSet<>();
         accounts.add(111L);
 
         long clientId = 1L;
@@ -45,7 +48,7 @@ class AccountServiceTest {
     @SneakyThrows
     @Test
     void contractNotExist() {
-        Set<Long> accounts = new HashSet();
+        Set<Long> accounts = new HashSet<>();
         accounts.add(222L);
 
         long clientId = 1L;
@@ -64,6 +67,31 @@ class AccountServiceTest {
     @Test
     void serviceHasTreeMethods() {
         assertEquals(2, AccountService.class.getMethods().length - Object.class.getMethods().length);
+    }
+
+    @SneakyThrows
+    @Test
+    void leastOneContractExist() {
+        Set<Long> accounts = new HashSet<>();
+        accounts.add(111L);
+
+        long clientId = 1L;
+
+        when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
+
+        assertTrue(accountService.isClientHasLeastOneContract(clientId));
+    }
+
+    @SneakyThrows
+    @Test
+    void contractsNotExist() {
+        Set<Long> accounts = new HashSet<>();
+
+        long clientId = 1L;
+
+        when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
+
+        assertFalse(accountService.isClientHasLeastOneContract(clientId));
     }
 
 }
