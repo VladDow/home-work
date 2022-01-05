@@ -10,13 +10,14 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileAccountRepositoryTest {
 
-    AccountRepository accountRepository;
+    FileAccountRepository accountRepository;
 
     @Test
-    void onlyPersonalAccounts() throws IOException {
+    void onlyPersonalAccounts() {
         String filePath = "src/main/resources/Accounts.txt";
         accountRepository = new FileAccountRepository(filePath);
 
@@ -43,5 +44,42 @@ class FileAccountRepositoryTest {
         assertThrows(FileNotFoundException.class, () -> accountRepository.getAllAccountsByClientId(clientId));
     }
 
+    @Test
+    void clientIdExist() {
+        long contractNumber = 999L;
+
+        String filePath = "src/main/resources/Accounts.txt";
+
+        accountRepository = new FileAccountRepository(filePath);
+
+        assertEquals(3L, accountRepository.getClientIdByContractNumber(contractNumber));
+    }
+
+    @Test
+    void failGetClientIdByContractNumber() {
+        long contractNumber = 123L;
+
+        String filePath = "src/main/resources/Accounts.txt";
+
+        accountRepository = new FileAccountRepository(filePath);
+
+        assertEquals(-1L, accountRepository.getClientIdByContractNumber(contractNumber));
+    }
+
+    @Test
+    void changeContractNumber() {
+        long clientId = 1L;
+        long oldContractNumber = 333L;
+        long newContractNumber = 100L;
+
+        String filePath = "src/main/resources/Accounts.txt";
+
+        accountRepository = new FileAccountRepository(filePath);
+        accountRepository.setNewContractNumberByClientId(clientId, oldContractNumber, newContractNumber);
+
+        assertEquals(1L, accountRepository.getClientIdByContractNumber(newContractNumber));
+
+        accountRepository.setNewContractNumberByClientId(clientId, newContractNumber, oldContractNumber);
+    }
 
 }

@@ -19,7 +19,7 @@ public interface AccountRepository {
     /**
      * Метод должен возвращать уникальный идентификатор клиента по его счету
      * @param contractNumber номер счета
-     * @return возвращает уникальный идентификатор по счету
+     * @return возвращает уникальный идентификатор по счету и -1 в случае его отсутствия
      */
     long getClientIdByContractNumber(long contractNumber);
 }
