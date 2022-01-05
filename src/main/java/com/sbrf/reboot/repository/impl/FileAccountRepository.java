@@ -3,7 +3,6 @@ package com.sbrf.reboot.repository.impl;
 import com.sbrf.reboot.repository.AccountRepository;
 
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 
 import java.io.*;
 
@@ -27,8 +26,7 @@ public class FileAccountRepository implements AccountRepository {
      * @return возвращает счета по идентификатору клиента
      */
     @Override
-    @SneakyThrows
-    public Set<Long> getAllAccountsByClientId(long clientId) {
+    public Set<Long> getAllAccountsByClientId(long clientId) throws IOException {
 
         final String CLIENT_ID = "clientId";
 
@@ -53,8 +51,7 @@ public class FileAccountRepository implements AccountRepository {
      * @return возвращает уникальный идентификатор по счету и -1 в случае его отсутствия
      */
     @Override
-    @SneakyThrows
-    public long getClientIdByContractNumber(long contractNumber) {
+    public long getClientIdByContractNumber(long contractNumber) throws IOException {
 
         final String CLIENT_ID = "clientId";
 
@@ -81,8 +78,7 @@ public class FileAccountRepository implements AccountRepository {
      * @param oldContractNumber старый номер счета
      * @param newContractNumber новый номер счета
      */
-    @SneakyThrows
-    public void setNewContractNumberByClientId(long clientId, long oldContractNumber, long newContractNumber) {
+    public void setNewContractNumberByClientId(long clientId, long oldContractNumber, long newContractNumber) throws IOException {
 
         final String CLIENT_ID = "clientId";
 

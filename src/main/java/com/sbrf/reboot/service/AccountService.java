@@ -4,6 +4,8 @@ import com.sbrf.reboot.repository.AccountRepository;
 
 import lombok.AllArgsConstructor;
 
+import java.io.IOException;
+
 /**
  * Класс, реализующий базовые операции для клиентов
  * @author Довгун Владислав Алексеевич
@@ -21,7 +23,7 @@ public class AccountService {
      * @param contractNumber номер счета
      * @return возвращает истину в случае наличия заданного счета
      */
-    public boolean isClientHasContract(long clientId, long contractNumber) {
+    public boolean isClientHasContract(long clientId, long contractNumber) throws IOException {
         return accountRepository.getAllAccountsByClientId(clientId).contains(contractNumber);
     }
 
@@ -30,7 +32,7 @@ public class AccountService {
      * @param clientId уникальный идентификатор клиента
      * @return возвращает истину в случае существования хотя бы одного счета
      */
-    public boolean isClientHasLeastOneContract(long clientId) {
+    public boolean isClientHasLeastOneContract(long clientId) throws IOException {
         return !accountRepository.getAllAccountsByClientId(clientId).isEmpty();
     }
 

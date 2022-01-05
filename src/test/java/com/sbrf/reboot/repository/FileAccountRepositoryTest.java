@@ -3,8 +3,9 @@ package com.sbrf.reboot.repository;
 import com.sbrf.reboot.repository.impl.FileAccountRepository;
 import org.junit.jupiter.api.Test;
 
+import lombok.SneakyThrows;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ class FileAccountRepositoryTest {
     FileAccountRepository accountRepository;
 
     @Test
+    @SneakyThrows
     void onlyPersonalAccounts() {
         String filePath = "src/main/resources/Accounts.txt";
         accountRepository = new FileAccountRepository(filePath);
@@ -45,6 +47,7 @@ class FileAccountRepositoryTest {
     }
 
     @Test
+    @SneakyThrows
     void clientIdExist() {
         long contractNumber = 999L;
 
@@ -56,6 +59,7 @@ class FileAccountRepositoryTest {
     }
 
     @Test
+    @SneakyThrows
     void failGetClientIdByContractNumber() {
         long contractNumber = 123L;
 
@@ -67,6 +71,7 @@ class FileAccountRepositoryTest {
     }
 
     @Test
+    @SneakyThrows
     void changeContractNumber() {
         long clientId = 1L;
         long oldContractNumber = 333L;

@@ -1,5 +1,6 @@
 package com.sbrf.reboot.repository;
 
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -14,12 +15,12 @@ public interface AccountRepository {
      * @param clientId уникальный идентификатор клиента
      * @return возвращает счета по идентификатору клиента
      */
-    Set<Long> getAllAccountsByClientId(long clientId);
+    Set<Long> getAllAccountsByClientId(long clientId) throws IOException;
 
     /**
      * Метод должен возвращать уникальный идентификатор клиента по его счету
      * @param contractNumber номер счета
      * @return возвращает уникальный идентификатор по счету и -1 в случае его отсутствия
      */
-    long getClientIdByContractNumber(long contractNumber);
+    long getClientIdByContractNumber(long contractNumber) throws IOException;
 }
