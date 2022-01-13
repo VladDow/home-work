@@ -39,7 +39,7 @@ class AccountServiceTest {
 
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
 
-        assertTrue(accountService.isClientHasContract(clientId, contractNumber));
+        assertTrue(accountService.isClientHasAccount(clientId, contractNumber));
     }
 
     @SneakyThrows
@@ -53,7 +53,7 @@ class AccountServiceTest {
 
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
 
-        assertFalse(accountService.isClientHasContract(clientId, contractNumber));
+        assertFalse(accountService.isClientHasAccount(clientId, contractNumber));
     }
 
     @Test
