@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FileAccountRepositoryTest {
 
@@ -29,7 +28,7 @@ class FileAccountRepositoryTest {
             add(333L);
         }};
 
-        actualAccounts.forEach(e -> assertTrue(expected.contains(e)));
+        assertEquals(expected,actualAccounts);
     }
 
     @Test
