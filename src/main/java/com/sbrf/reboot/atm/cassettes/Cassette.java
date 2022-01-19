@@ -1,6 +1,6 @@
 package com.sbrf.reboot.atm.cassettes;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс, определяющий кассеты в банкомате
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class Cassette<T extends Banknote> {
 
     // Список купюр одного номинала в кассете
-    private final ArrayList<T> cassette;
+    private final List<T> cassette;
 
-    public Cassette(ArrayList<T> cassette) {
+    public Cassette(List<T> cassette) {
         this.cassette = cassette;
     }
 

@@ -4,6 +4,7 @@ import com.sbrf.reboot.lesson5.fruit.Fruit;
 
 import java.util.HashSet;
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Класс, определяющий коробку с фруктами
@@ -13,7 +14,7 @@ import java.util.Arrays;
 public class Box<F extends Fruit> {
 
     // Множество фруктов в коробке
-    private final HashSet<F> box;
+    private final Set<F> box;
 
     public Box(F... fruits) {
         box = new HashSet<>(Arrays.asList(fruits));
