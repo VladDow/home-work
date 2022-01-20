@@ -2,8 +2,9 @@ package com.sbrf.reboot.collections;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.Set;
+import java.time.LocalTime;
+
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,7 +33,8 @@ public class CollectionsTest {
 
         List<String> students = null;
 
-        //...
+        students = new LinkedList<>(Arrays.asList("Иванов", "Петров", "Сидоров"));
+        students.add(0, "Козлов");
 
         assertEquals(4, students.size());
     }
@@ -52,7 +54,7 @@ public class CollectionsTest {
 
         Set<Integer> moneyBox = null;
 
-        //...
+        moneyBox = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         assertEquals(10, moneyBox.size());
     }
@@ -74,10 +76,60 @@ public class CollectionsTest {
 
         List<Book> bookshelf = null;
 
-        //...
+        bookshelf = new ArrayList<>(Arrays.asList(new Book(), new Book(), new Book()));
 
         assertEquals(3, bookshelf.size());
     }
 
+    /*
+     * Задача на 5+.
+     * Имеется поликлиника. В поликлинике работает только один терапевт.
+     * К терапевту выстроилась живая очередь. Необходимо обслужить сначала пациентов, которые пришли
+     * по талону, и только потом всех остальных.
+     *
+     * Пациенты пришли в следующем порядке:
+     *
+     * 1. Екатерина - Без записи
+     * 2. Максим - Запись на 9:30
+     * 3. Анна - Запись на 9:00
+     * 4. Руслан - Без записи
+     *
+     * Вопрос.
+     * Какую коллекцию из реализаций интерфейса Collection вы предпочтете использовать для организации такой очереди.
+     *
+     * Проинициализируйте queue, имплементируйте необходимый интерфейс и добавьте 4 пациента что бы тест завершился успешно.
+     */
+    @Test
+    public void queueOrganization() {
+
+        class Patient implements Comparable<Patient> {
+
+            final String name;
+            final LocalTime receptionTime;
+
+            Patient(String name) {
+                this.name = name;
+                this.receptionTime = LocalTime.MAX;
+            }
+
+            Patient(String name, String receptionTime) {
+                this.name = name;
+                this.receptionTime = LocalTime.parse(receptionTime);
+            }
+
+            @Override
+            public int compareTo(Patient o) {
+                return this.receptionTime.compareTo(o.receptionTime);
+            }
+
+        }
+
+        Queue<Patient> queue = null;
+
+        queue = new PriorityQueue<>(Arrays.asList(new Patient("Екатерина"), new Patient("Максим", "09:30"),
+                                                  new Patient("Анна","09:00"), new Patient("Руслан")));
+
+        assertEquals("Анна", queue.peek().name);
+    }
 
 }
