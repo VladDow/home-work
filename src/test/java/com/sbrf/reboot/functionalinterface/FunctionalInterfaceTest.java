@@ -8,9 +8,14 @@ import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import com.sbrf.reboot.utils.JSONUtils;
 
 public class FunctionalInterfaceTest {
 
@@ -28,13 +33,18 @@ public class FunctionalInterfaceTest {
 
     static class ListConverter<T> {
         public List<String> toJsonsList(@NonNull List<T> someObjects, ObjectToJsonFunction<T> objectToJsonFunction) {
-            List<String> result = new ArrayList<>();
+
             if (someObjects.isEmpty())
                 throw new IllegalArgumentException("The list is empty");
 
-            //add code here...
+            return someObjects.stream().map(object -> {
+                try {
+                    return objectToJsonFunction.applyAsJson(object);
+                } catch (JsonProcessingException e) {
+                    throw new IllegalArgumentException("Unable to convert all objects");
+                }
+            }).collect(Collectors.toList());
 
-            return result;
         }
     }
 
@@ -42,10 +52,7 @@ public class FunctionalInterfaceTest {
     public void successCallFunctionalInterface() {
         ListConverter<SomeObject> ListConverter = new ListConverter<>();
 
-        ObjectToJsonFunction<SomeObject> objectToJsonFunction = someObject -> {
-            //add code here...
-            return null;
-        };
+        ObjectToJsonFunction<SomeObject> objectToJsonFunction = JSONUtils::toJSON;
 
         List<String> strings = ListConverter.toJsonsList(
                 Arrays.asList(
@@ -57,6 +64,24 @@ public class FunctionalInterfaceTest {
 
         Assertions.assertTrue(strings.contains("{\"objectName\":\"Object-1\"}"));
         Assertions.assertTrue(strings.contains("{\"objectName\":\"Object-2\"}"));
+    }
+
+    /*
+     * Задача на 5+.
+     * Имеется последовательность простых чисел в потоке.
+     *
+     * Вопрос.
+     * Какой стандартный функциональный интерфейс необходимо реализовать, чтобы получить последовательность факториалов этих чисел.
+     */
+    @Test
+    public void factorialFromStream() {
+
+        Function<Integer, Integer> factorial = integer -> IntStream.rangeClosed(1, integer).reduce((left, right) -> left * right).getAsInt();
+
+        List<Integer> result = Stream.of(1, 2, 3, 4, 5).map(factorial).collect(Collectors.toList());
+
+        Assertions.assertEquals(result, Arrays.asList(1, 2, 6, 24, 120));
+
     }
 
 }
