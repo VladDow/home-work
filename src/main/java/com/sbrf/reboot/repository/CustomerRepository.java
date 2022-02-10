@@ -9,6 +9,9 @@ public interface CustomerRepository {
 
     boolean createCustomer(@NonNull String userName, String eMail);
 
+    void createTableCustomer();
+    boolean customerWithNameExist(@NonNull String name);
+
     List<Customer> getAll();
 
 }
