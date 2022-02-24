@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -35,4 +36,10 @@ public class TaskExecutorServiceTest {
 
         taskExecutorService.shutdown();
     }
+
+    @Test
+    public void optimalNumberOfThreads() {
+        assertThrows(IllegalArgumentException.class, () -> new TaskExecutorService(TaskExecutorService.OPTIMAL_NUMBER + 1));
+    }
+
 }
